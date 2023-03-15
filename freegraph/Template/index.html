@@ -1,0 +1,16 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeGraph</title>
+</head>
+
+<body>
+    <input type="file" accept="image/*" style="display:none;" id="file"/>
+    <input type="button" value="Importar Dataset" onclick="document.getElementById('file').click();"/>
+</body>
