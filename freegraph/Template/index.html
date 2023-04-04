@@ -1,16 +1,53 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% block conteudo %}
+    {% if message and msg_status == 'verde' %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreeGraph</title>
-</head>
+        <!-- criar um html para mostrar seleção de colunas -->
+        Escolha duas colunas para exibir um gráfico:<br/>
+        {% for coluna in colunas %} 
+            <button>{{ coluna }}</button>
+        {% endfor %}
+        </p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p></p>
 
-<body>
-    <input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none;" id="file"/>
-    <input type="button" value="Importar Dataset" onclick="document.getElementById('file').click();"/>
-</body>
+    {% elif message and msg_status == 'vermelho' %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+
+    {% endif %}
+
+    <h2>Importar dados</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="arquivo">
+        <button type="submit">Enviar</button>
+    </form>
+    <!--<h2>Importar dados</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="arquivo"><br/>
+        <button type="submit">Enviar</button>
+        <!--<input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none;" id="file"/>-->
+        <!-- <input type="button" value="Selecionar Dataset" onclick="document.getElementById('file').click();" name="dataset"/>
+        <input type="submit" value="Confirmar" onclick="readCSVFile();"> -->
+    </form>
+
+    <br><br>
+    <!-- List CSV file data -->
+    <table id="tblcsvdata" border="1" style="border-collapse: collapse;">
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+{% endblock %}
